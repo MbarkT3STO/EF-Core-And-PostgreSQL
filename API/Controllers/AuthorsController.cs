@@ -12,34 +12,56 @@ namespace API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class AuthorsController : ControllerBase
+public class AuthorsController: ControllerBase
 {
 	AppDbContext _context;
-	
+
 	public AuthorsController(AppDbContext context)
 	{
 		_context = context;
 	}
-	
-	
+
+
 	[HttpGet]
 	public async Task<IActionResult> Get()
 	{
-		var authors = await _context.Authors.ToListAsync();
-		
+		var authors = await _context.Authors.Select(a => new
+		{
+			a.Id,
+			a.Name,
+			SocialMedia = new
+			{
+				a.SocialMedia.Facebook,
+				a.SocialMedia.Twitter,
+				a.SocialMedia.Instagram,
+				a.SocialMedia.LinkedIn
+			}
+		}).ToListAsync();
+
 		return Ok(authors);
 	}
-	
+
 	[HttpGet("{id}")]
 	public async Task<IActionResult> Get(int id)
 	{
-		var author = await _context.Authors.FindAsync(id);
-		
+		var author = await _context.Authors.Select(a => new
+		{
+			a.Id,
+			a.Name,
+			SocialMedia = new
+			{
+				a.SocialMedia.Facebook,
+				a.SocialMedia.Twitter,
+				a.SocialMedia.Instagram,
+				a.SocialMedia.LinkedIn
+			}
+		}).FirstOrDefaultAsync(a => a.Id == id);
+
 		if (author == null)
 		{
 			return NotFound();
 		}
-		
+
 		return Ok(author);
 	}
 
@@ -48,12 +70,19 @@ public class AuthorsController : ControllerBase
 	{
 		var author = new Author
 		{
-			Name = model.Name
+			Name = model.Name,
+			SocialMedia = new SocialMedia
+			{
+				Facebook = model.Facebook,
+				Twitter = model.Twitter,
+				Instagram = model.Instagram,
+				LinkedIn = model.LinkedIn
+			}
 		};
-		
+
 		_context.Authors.Add(author);
 		await _context.SaveChangesAsync();
-		
+
 		return CreatedAtAction(nameof(Get), new { id = author.Id }, author);
 	}
 }

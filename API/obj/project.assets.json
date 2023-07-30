@@ -1482,11 +1482,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\Users\\MBARKT3STO\\Desktop\\EF Core And PostgreSQL\\API\\API.csproj",
+      "projectUniqueName": "c:\\Users\\MBARKT3STO\\source\\repos\\EF-Core-And-PostgreSQL\\API\\API.csproj",
       "projectName": "API",
-      "projectPath": "c:\\Users\\MBARKT3STO\\Desktop\\EF Core And PostgreSQL\\API\\API.csproj",
+      "projectPath": "c:\\Users\\MBARKT3STO\\source\\repos\\EF-Core-And-PostgreSQL\\API\\API.csproj",
       "packagesPath": "C:\\Users\\MBARKT3STO\\.nuget\\packages\\",
-      "outputPath": "c:\\Users\\MBARKT3STO\\Desktop\\EF Core And PostgreSQL\\API\\obj\\",
+      "outputPath": "c:\\Users\\MBARKT3STO\\source\\repos\\EF-Core-And-PostgreSQL\\API\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\MBARKT3STO\\AppData\\Roaming\\NuGet\\NuGet.Config",
