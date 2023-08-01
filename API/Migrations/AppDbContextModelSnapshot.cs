@@ -34,6 +34,9 @@ namespace API.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<string[]>("Nicknames")
+                        .HasColumnType("text[]");
+
                     b.Property<string>("SocialMedia")
                         .HasColumnType("jsonb");
 

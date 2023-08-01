@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace API.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230730170412_Initial")]
+    [Migration("20230730194218_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -36,6 +36,9 @@ namespace API.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<string[]>("Nicknames")
+                        .HasColumnType("text[]");
 
                     b.Property<string>("SocialMedia")
                         .HasColumnType("jsonb");

@@ -35,7 +35,8 @@ public class AuthorsController: ControllerBase
 				a.SocialMedia.Twitter,
 				a.SocialMedia.Instagram,
 				a.SocialMedia.LinkedIn
-			}
+			},
+			Nicknames = string.Join(", ", a.Nicknames)
 		}).ToListAsync();
 
 		return Ok(authors);
@@ -54,7 +55,8 @@ public class AuthorsController: ControllerBase
 				a.SocialMedia.Twitter,
 				a.SocialMedia.Instagram,
 				a.SocialMedia.LinkedIn
-			}
+			},
+			Nicknames = string.Join(", ", a.Nicknames)
 		}).FirstOrDefaultAsync(a => a.Id == id);
 
 		if (author == null)
@@ -77,7 +79,8 @@ public class AuthorsController: ControllerBase
 				Twitter = model.Twitter,
 				Instagram = model.Instagram,
 				LinkedIn = model.LinkedIn
-			}
+			},
+			Nicknames = model.Nicknames
 		};
 
 		_context.Authors.Add(author);
@@ -85,4 +88,29 @@ public class AuthorsController: ControllerBase
 
 		return CreatedAtAction(nameof(Get), new { id = author.Id }, author);
 	}
+
+
+	[HttpGet("[action]/{value}")]
+	public async Task<IActionResult> SearchByNickNames(string value)
+	{
+		var authors = _context.Authors.AsEnumerable()
+			.Where(a => a.Nicknames.Any(nick => nick.StartsWith(value)))
+			.Select(a => new
+			{
+				a.Id,
+				a.Name,
+				SocialMedia = new
+				{
+					a.SocialMedia.Facebook,
+					a.SocialMedia.Twitter,
+					a.SocialMedia.Instagram,
+					a.SocialMedia.LinkedIn
+				},
+				Nicknames = string.Join(", ", a.Nicknames)
+			})
+			.ToList();
+
+		return Ok(authors);
+	}
+
 }
